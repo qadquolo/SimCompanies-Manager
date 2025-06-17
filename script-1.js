@@ -183,14 +183,20 @@ setInterval(()=> {}, 2500)
 function getFromStorage(key) {
   new Promise((res,rej)=> {
       chrome.storage.local.get(key).then(data => {
-        if (!data[key]) {chrome.storage.local.set({[key]: {}});  res({})} 
+        if (!data[key]) {
+          defRecent= {recent_items: {1: {ct: 0, price:0, qty: 0}, 2: {ct: 0, price:0, qty: 0}}}
+          switch(key) {
+            case 'recent_items': chrome.storage.local.set(defRecent);  res(defRecent.recent_items); break
+            default: chrome.storage.local.set({[key]: {}});  res({})
+          }
+        } 
         else {
         res(data[key])
         }
       })
   }).then(result=> {
         switch(key) {
-          case 'recent_items': recent_items= result; break
+          case 'recent_items': recent_items= result   ; break
           case 'notif_prices': notif_prices= result; break
           case 'busy_build':   busy_build= result;  break
           default: return
@@ -877,12 +883,12 @@ async function getCSRF() {
   return fetch( new Request('https://www.simcompanies.com/api/csrf/'), myInit ).then(response => {if (response.ok) return response.json(); return new Promise(()=>{})}) 
  
 }
-function _getWare(key, qty) {
+function _getWare(id, qty) {
   //console.log(key, qty)
   let i = 0; let result = 0
   while (i < wares.length) { 
-    //if(key ==1) console.log({ q: qty, waresq: wares[i].quality})
-    if (key == wares[i].kind && qty <= wares[i].quality) result += wares[i].amount; i++
+    //if(id ==1) console.log({ q: qty, waresq: wares[i].quality})
+    if (id == wares[i].kind && qty <= wares[i].quality) result += wares[i].amount; i++
   } 
   return result
 }
@@ -1179,6 +1185,12 @@ const str2rstr_utf8 = (input) => {
 };
 
 const hex_md5 = (s) => rstr2hex(rstr_md5(str2rstr_utf8(s)));
+
+
+// 1749058209393 = seconds
+// 069361559167175eebe5268f243e4e22 = X-Prot
+
+
 
 
 //  https://www.simcompanies.com/api/v3/market-ticker/0/  - min prices
