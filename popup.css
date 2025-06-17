@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    min-height: 10rem;
+    width: max-content;    
+}
+
+div {
+    display:flex;
+}
+span {
+    display:flex;
+    justify-content:center;
+}
+
+.fa-icon {
+    min-height: 4rem;
+    min-width: 4rem;
+}
+
+.fa-icon-powerbtn {
+    min-height: 4rem;
+    min-width: 4rem;
+    clip-path:  url("#power-off-clip");    
+      
+}
+
+button {
+    background-color: #14c44e !important;
+    border-radius: 5px;
+    font-size: 17px;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 6px 18px;
+    height: 2.5rem;
+    width: fit-content;
+}
+button.disabled {
+    background-color: #686e6a !important;
+}
