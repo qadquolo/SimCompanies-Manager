@@ -21,7 +21,7 @@ let busy_budget = 1000; chrome.storage.local.get('busy_budget').then(budget=> {i
 
 function onBuildingsReceived() {
   if (Object.keys(buildings).length>0) {
-    if (buildBusyState == 1) {toggleBuildBusyService(); let elem = document.getElementById('build-busy');if(elem) elem.classList.toggle('build-busy')}
+    if (buildBusyState == 1) {toggleBuildBusyService(); }
   }
 }
 
@@ -31,7 +31,7 @@ function onBuildingsReceived() {
 //
 let companyId = 0; makeApiRequest('api/v3/companies/auth-data/', null, (response)=> { if(response.authCompany) companyId = response.authCompany.companyId});
 let buildings = {}; 
-makeApiRequest('api/v2/companies/me/buildings/', null, (response)=> {buildingsReq(response); onBuildingsReceived()
+makeApiRequest('api/v2/companies/me/buildings/', null, (response)=> {buildingsReq(response).then(_buildings=> onBuildingsReceived()) 
   }); setTimeout(()=> {console.log(buildings)}, 500) 
 
 function tilefilter(tiles) {let newArray=[]; for (let i=0;i<tiles.length;i++) {if (tiles[i].href) newArray.push(tiles[i]) }; return newArray} 
@@ -1185,12 +1185,6 @@ const str2rstr_utf8 = (input) => {
 };
 
 const hex_md5 = (s) => rstr2hex(rstr_md5(str2rstr_utf8(s)));
-
-
-// 1749058209393 = seconds
-// 069361559167175eebe5268f243e4e22 = X-Prot
-
-
 
 
 //  https://www.simcompanies.com/api/v3/market-ticker/0/  - min prices

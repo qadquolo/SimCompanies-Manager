@@ -283,7 +283,7 @@ function createWaresPanelItem(id, hElem) {
 function toggleBuildBusyService(event) {
   const getToolbarItem = async (ev) => {
     if (ev) {return (function(){if(ev.target.nodeName == 'path')return ev.target.closest('.build-busy'); return ev.target})()}
-    else  return document.getElementById('build-busy-toggle')
+    else  return parseElementWithInterval('build-busy-toggle').then(toggler=> {return toggler})
   }
   getToolbarItem(event).then(target => target.classList.toggle('enabled')) 
   // отключение авто производства

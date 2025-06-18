@@ -109,6 +109,16 @@ function createSVG(index, state, callback) {
     //newElem.dataset.icon = 'star'
     newElem.dataset.prefix = 'fas'
     newElem.role = 'img'
+    //newElem.setAttributeNS("svg", '0 0 576 512')
+    //newElem.width.animVal = {unitType: 2, value: 15.75, valueAsString: "100%", valueInSpecifiedUnits: 100}
+    //newElem.width.baseVal = {unitType: 2, value: 15.75, valueAsString: "100%", valueInSpecifiedUnits: 100}
+    //newElem.height.animVal = {unitType: 2, value: 14, valueAsString: "100%", valueInSpecifiedUnits: 100}
+    //newElem.height.baseVal = {unitType: 2, value: 14, valueAsString: "100%", valueInSpecifiedUnits: 100}
+    //console.log(newElem.attributes)
+    //newElem.viewBox.animVal.height = 512  //'0 0 576 512'
+    //newElem.viewBox.animVal.width = 576
+    //newElem.setAttribute("width", "576");
+    //newElem.setAttribute("height", "512");
     newElem.setAttribute("viewBox", '0 0 576 512');
     newElem.innerHTML = innerHTML
     callback(newElem)
@@ -145,7 +155,7 @@ function buildingsReq(response) {
                 if (item.busy) toggleBusyStateForPanel(id)
                 if (!busy_build[id]) {let kind= resID[busy_items[item.name][0]].id ;    busy_build[id] = {ct: 0, kind: kind, qty: null}}
                 if (index == response.length -1) 
-                {res(buildings); _buildings.respond = true;}
+                {res(buildings); }
             })
         });  return promise
     }  catch(err) {console.log(err)}
@@ -245,3 +255,18 @@ function  dispatchRequest(data) {
 async function getElementID(target, substring) {
     return target.id.substring(String(substring).length);
 }
+
+function parseElementWithInterval(id) {
+    async function getElem (id) {    
+        let elem = self. document.getElementById(id)
+        if (elem) return elem
+        else  return null
+        }
+    const _func = async (id) => { return getElem(id).then(result=> {if(result) { return result} else return null})}
+    return new Promise((res, rej)=> {
+        const newInterval = setInterval(_func(id).then(result=> {if (result) { res(result); _clear()}}), 1000)
+        
+        function _clear() {
+            clearInterval(newInterval)
+        }
+    })}
