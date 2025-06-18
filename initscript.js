@@ -198,12 +198,10 @@ function startForTabs() {
     if (ExtensionEnabled) {  //(info.title || info.status)
 
       if(tab.status == 'complete' && (info.title || info.status) && tab.url.includes('simcompanies.com/')) {
-        if (!activated_tabs.includes(tab.id)) {
           console.log('onUpdated')
           activated_tabs.push(tab.id)
           chrome.storage.local.set({activated_tabs: activated_tabs})
           inject_Function(tab, preInject, null)
-        } 
       }
 
       if(tab.status == 'complete' && !tab.url.includes('simcompanies.com/') && (activated_tabs.includes(tab.id))) {
@@ -362,7 +360,7 @@ function preInject() {
         return
       }
       else {
-        console.log('custom exchange elem  found')
+        //console.log('custom exchange elem  found')
         preInjectFunc.dummyVar = '1234test' // show after event dispathing
         //self.dispatchEvent(preInjectFunc);  // init event
         injectFunc()
