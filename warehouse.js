@@ -1,9 +1,8 @@
 
 
-function injectSellBtn() {
-    let items = []; let _items = document.getElementsByClassName('e14va4ca4'); for (let i=0; i < _items.length; i++) {items.push(_items[i])}
+function injectSellBtn(items) {
+    //let items = []; let _items = document.getElementsByClassName('e14va4ca4'); for (let i=0; i < _items.length; i++) {items.push(_items[i])}
     //console.log({_items, items})
-    
     items.forEach((item, index)=> {
         let hElem =  item.parentNode
         function getItemData(item, nodeName) {let i = -1; do {i++; if(item.childNodes[i].nodeName == nodeName) 

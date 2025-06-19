@@ -53,12 +53,16 @@ let buildBusyTimeout = null
 
 
     console.log({chrome_runtime : chrome.runtime})
-    createElement(null, {elem: 'div',id:'div-getvars', style:'height: 4rem; width:4rem;z-index:10;position:absolute;margin-top:5rem;margin-left:0rem;background-color: rgb(120 120 120);visibility:visible;'}, (elem)=> { document.getElementsByClassName('css-1muzv4r')[0].append(elem)
-      
-      elem.onclick = (ev)=> {
-        console.log({recent_items, notif_prices, busy_build, buildings, playerMoney, busy_timeinterval, default_busy_timeinterval,busyTimeouts,busyDurations, companyId:companyId, tiles:tiles, eCreated, buildBusyState, wares})
-      }
-    })
+
+      try {
+      createElement(null, {elem: 'div',id:'div-getvars', style:'height: 4rem; width:4rem;z-index:10;position:absolute;margin-top:5rem;margin-left:0rem;background-color: rgb(120 120 120);visibility:visible;'}, (elem)=> { 
+        document.getElementsByClassName('css-1muzv4r')[0].append(elem)
+        elem.onclick = (ev)=> {
+          console.log({recent_items, notif_prices, busy_build, buildings, playerMoney, busy_timeinterval, default_busy_timeinterval,busyTimeouts,busyDurations, companyId:companyId, tiles:tiles, eCreated, buildBusyState, wares})
+        }
+      }) 
+      }catch(err) {console.log(err)}
+
     self.getVars = () => {return buildings}
     self.onprogress = (ev) => { console.log(ev.target.status)}
     self.onmessage = (ev) => {console.log(self.location.pathname) }
@@ -83,7 +87,7 @@ let buildBusyTimeout = null
           let contains = false;
           customSellCL.forEach((classname, index)=> {if (ev.target.classList.contains(classname)) contains = true; if(index == customSellCL.length-1 && !contains) {eCreated.customSell.remove();}})   
         }
-        checkInjection()    
+        //injectSellButtons()  
       }
 
     }
@@ -379,10 +383,7 @@ function checkInjection() {
                           let i= -1;  do {i++; checkboxes[i].style.visibility = 'visible'} while (i < checkboxes.length-1)}
         }
         // warehouse
-        if(pathname.indexOf('/warehouse/') > -1 ){ 
-          let sellBtn = document.querySelector('button.sell-btn')
-          if (!sellBtn) injectSellBtn()  
-        }
+        injectSellButtons()
         //lower prices inspector
           let priceInspector = document.getElementById('custom-price-inspector')
           if(priceInspector) {
@@ -398,6 +399,13 @@ function checkInjection() {
           }
  
     } catch(err) {console.log(err.message)}    
+}
+function injectSellButtons() {
+  if(pathname.indexOf('/warehouse/') > -1 ){ 
+    let sellBtn = document.querySelector('button.sell-btn')
+    if (!sellBtn) {
+      parseElementWithInterval({selector:'div.e14va4ca4', single:false}).then(items => injectSellBtn(items)  )}
+  }
 }
 
 // <input type= "checkbox" class="item-cb" style="position: absolute;">

@@ -256,17 +256,33 @@ async function getElementID(target, substring) {
     return target.id.substring(String(substring).length);
 }
 
-function parseElementWithInterval(id) {
-    async function getElem (id) {    
-        let elem = self. document.getElementById(id)
+function parseElementWithInterval(type) {
+    const {id, selector, single} = type
+    let parse = (key) => {return document.getElementById(key)}
+    let key = id
+    if (selector) {key = selector;  
+        if (selector) {
+            if (single) parse = (key) => {return document.querySelector(key)}
+            else  parse = (key) => {return document.querySelectorAll(key)}
+        }
+    }  
+
+    async function getElem () {    
+        let elem = parse(key)
         if (elem) return elem
         else  return null
         }
-    const _func = async (id) => { return getElem(id).then(result=> {if(result) { return result} else return null})}
+    const _func = async () => { 
+        //return getElem(key, parsingFunc).then(result=> {if(result) { return result} else return null})
+        return getElem().then(result=> {if(result) { return result} else return null})
+        //return document.querySelectorAll('div.e14va4ca4')
+        }
+
     return new Promise((res, rej)=> {
-        const newInterval = setInterval(_func(id).then(result=> {if (result) { res(result); _clear()}}), 1000)
+        const newInterval = setInterval(_func().then(result=> { if (result) { res(result); _clear()}})   , 1000, res)
         
         function _clear() {
             clearInterval(newInterval)
         }
     })}
+
