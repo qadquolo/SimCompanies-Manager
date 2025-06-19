@@ -56,7 +56,7 @@ let buildBusyTimeout = null
     createElement(null, {elem: 'div',id:'div-getvars', style:'height: 4rem; width:4rem;z-index:10;position:absolute;margin-top:5rem;margin-left:0rem;background-color: rgb(120 120 120);visibility:visible;'}, (elem)=> { document.getElementsByClassName('css-1muzv4r')[0].append(elem)
       
       elem.onclick = (ev)=> {
-        console.log({recent_items, notif_prices, busy_build, buildings, playerMoney, busy_timeinterval, default_busy_timeinterval,busyTimeouts,busyDurations, companyId:companyId, tiles:tiles, eCreated, buildBusyState})
+        console.log({recent_items, notif_prices, busy_build, buildings, playerMoney, busy_timeinterval, default_busy_timeinterval,busyTimeouts,busyDurations, companyId:companyId, tiles:tiles, eCreated, buildBusyState, wares})
       }
     })
     self.getVars = () => {return buildings}
@@ -77,6 +77,13 @@ let buildBusyTimeout = null
           let list = document.getElementById('custom-busy-list-cont'); let posY=ev.clientY-80; if (posY>400) posY=400
           list.style=`margin-top:${posY}px;`
         } 
+      }
+      if(pathname.indexOf('/warehouse/') >-1 ) {
+        if (eCreated.customSell && ev.target.classList)  {
+          let contains = false;
+          customSellCL.forEach((classname, index)=> {if (ev.target.classList.contains(classname)) contains = true; if(index == customSellCL.length-1 && !contains) {eCreated.customSell.remove();}})   
+        }
+        checkInjection()    
       }
 
     }
@@ -291,8 +298,9 @@ function makeLowerPricesRequest() {
 function injectFunc() {
     pathname = self.location.pathname;  
     if (pathname.startsWith('/market/')) pathname = '/market/'
+    if (pathname.indexOf('/warehouse/') > -1) pathname = '/warehouse/'
     if (pathname.startsWith('/headquarters/')) pathname = '/headquarters/'
-    if (['/landscape/', '/headquarters/', '/search/', '/messages/', '/market/'].includes(pathname)) {
+    if (['/landscape/', '/headquarters/', '/warehouse/', '/search/', '/messages/', '/market/'].includes(pathname)) {
         //checkMain()  
         checkInjection()
     }
@@ -369,6 +377,11 @@ function checkInjection() {
               
             } else {      let checkboxes= document.getElementsByClassName('m-item-cb')
                           let i= -1;  do {i++; checkboxes[i].style.visibility = 'visible'} while (i < checkboxes.length-1)}
+        }
+        // warehouse
+        if(pathname.indexOf('/warehouse/') > -1 ){ 
+          let sellBtn = document.querySelector('button.sell-btn')
+          if (!sellBtn) injectSellBtn()  
         }
         //lower prices inspector
           let priceInspector = document.getElementById('custom-price-inspector')
@@ -857,7 +870,7 @@ function createCheckbox(index, state, callback) {
 function createElement(index, state, callback) {
   const _prefix = (index) => {if (!index && index !== 0) return ''; return '-';}
   let id_prefix = '-';  if (!index && index !== 0) {index = ''; id_prefix = ''}
-  const {elem, id, classname, style, src, innerHTML, innerText, role, href, value, type, list, data} = state
+  const {elem, id, classname, style, src, innerHTML, innerText, role, href, value, type, list, data, offsetLeft} = state
   
   let newElem = document.createElement(elem);
   if (classname) newElem.className = classname;
@@ -874,6 +887,7 @@ function createElement(index, state, callback) {
   if (type ) newElem.type = type
   if (list ) newElem.list = list
   if (data ) newElem.data = data
+  
   //if (_for) newElem.for = _for
    callback(newElem)   
 }
