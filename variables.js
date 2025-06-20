@@ -190,6 +190,137 @@ let resID = {
         'Easter bunny': { id: 151, ch: 3.67, wh: 437 },
         'Ramadan sweets': { id: 152, ch: 5.05, wh: 437 }
       }
+    let resType = {
+        Agriculture: ["Seeds","Apples","Oranges","Grapes","Grain","Sugarcane", "Cotton","Cows","Pigs", "Coffee beans","Cocoa", "Vegetables", "Fodder"],
+        Food: [ "Dough","Sauce","Steak", "Sausages",  "Eggs", "Milk", "Coffee powder", "Flour","Bread","Apple pie","Orange juice","Apple cider", "Ginger beer",
+          "Frozen pizza","Pasta","Butter", "Cheese", "Chocolate","Sugar","Hamburger","Lasagna", "Meat balls","Cocktails", "Vegetable oil", "Salad","Samosa","Pumpkin soup" ],
+        Construction:[
+            "Wood",
+            "Reinforced concrete",
+            "Bricks",
+            "Cement",
+            "Clay",
+            "Limestone",
+            "Steel beams",
+            "Planks",
+            "Windows",
+            "Tools",
+            "Construction units"
+        ],
+       Fashion:[
+            "Fabric",
+            "Leather",
+            "Underwear",
+            "Gloves",
+            "Dress",
+            "Stiletto Heel",
+            "Handbags",
+            "Sneakers",
+            "Luxury watch",
+            "Necklace"
+        ],
+       Energy:[
+            "Crude oil",
+            "Petrol",
+            "Diesel",
+            "Power",
+            "Ethanol",
+            "Methane",
+            "Rocket fuel"
+        ],
+        Electronics:[
+            "Processors",
+            "Electronic components",
+            "Batteries",
+            "Displays",
+            "Smart phones",
+            "Tablets",
+            "Laptops",
+            "Monitors",
+            "Televisions",
+            "High grade e-comps",
+            "Quadcopter",
+            "Robots"
+        ],
+        Automotive: [
+              "On-board computer",
+              "Electric motor",
+              "Luxury car interior",
+              "Basic interior",
+              "Car body",
+              "Combustion engine",
+              "Economy e-car",
+              "Luxury e-car",
+              "Economy car",
+              "Luxury car",
+              "Truck",
+              "Bulldozer"
+          ],
+        Aerospace:[
+              "Fuselage",
+              "Wing",
+              "Flight computer",
+              "Cockpit",
+              "Attitude control",
+              "Propellant tank",
+              "Solid fuel booster",
+              "Rocket engine",
+              "Heat shield",
+              "Ion drive",
+              "Jet engine",
+              "Sub-orbital 2nd stage",
+              "Sub-orbital rocket",
+              "Orbital booster",
+              "Starship",
+              "BFR",
+              "Jumbo jet",
+              "Luxury jet",
+              "Single engine plane",
+              "Satellite"
+          ],
+        Resources:[
+              "Water",
+              "Transport",
+              "Minerals",
+              "Bauxite",
+              "Silicon",
+              "Chemicals",
+              "Aluminium",
+              "Plastic",
+              "Iron ore",
+              "Steel",
+              "Sand",
+              "Glass",
+              "Gold ore",
+              "Golden bars",
+              "Carbon fibers",
+              "Carbon composite"
+          ],
+          Seasonal: [
+              "Pumpkin",
+              "Xmas crackers",
+              "Xmas ornament",
+              "Jack o'lantern",
+              "Witch costume",
+              "Tree",
+              "Easter Bunny",
+              "Ramadan sweets"
+          ],
+          Research: [
+                "Plant research",
+                "Energy research",
+                "Mining research",
+                "Electronics research",
+                "Breeding research",
+                "Chemistry research",
+                "Software",
+                "Automotive research",
+                "Fashion research",
+                "Aerospace research",
+                "Materials research",
+                "Recipes"
+            ]
+    }
 
 let busy_items = {
         Slaughterhouse: ['Steak', 'Sausages'], // 477
@@ -634,3 +765,5 @@ let aBusy = {
         'Software R&D': { items: [ 'Software' ], wh: 675 },
         'Forest nursery': { items: [ 'Tree' ], wh: 91 }
     }
+
+  const warehouseItemHTML = '<img src="/static/images/resources/eggs.png" alt="" class="css-pn23tk e14va4ca0"><b>Eggs</b><span class="css-1w44llp e14va4ca1">0</span>'

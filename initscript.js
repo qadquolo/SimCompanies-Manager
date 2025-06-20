@@ -8,7 +8,7 @@ import * as backgroundScript from './sw-modules/background-script.js'
 
 let ExtensionEnabled = true
 let _onUpd = 0
-let injection_scripts = {default: ['variables.js', 'hash-tokens.js', 'functions.js','script-2.js','script-1.js' ], spec: ['script-1.js'], vars: ['variables.js']}
+let injection_scripts = {default: ['variables.js', 'hash-tokens.js', 'functions.js','warehouse.js','script-2.js','script-1.js' ], spec: ['script-1.js'], vars: ['variables.js']}
 
 let activated_tabs = []
 
@@ -353,6 +353,7 @@ function preInject() {
         try{
           console.log('custom exchange elem not found')
           let isexist= wares
+          injectFunc()
           return
         } catch(err) {console.log('injection require')}
         //callback(true)

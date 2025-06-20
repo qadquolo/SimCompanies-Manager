@@ -402,9 +402,11 @@ function checkInjection() {
 }
 function injectSellButtons() {
   if(pathname.indexOf('/warehouse/') > -1 ){ 
-    let sellBtn = document.querySelector('button.sell-btn')
-    if (!sellBtn) {
-      parseElementWithInterval({selector:'div.e14va4ca4', single:false}).then(items => injectSellBtn(items)  )}
+    
+      parseElementWithInterval({selector:'div.e14va4ca4', single:false}).then(items => {
+        let sellBtn = document.querySelector('button.sell-btn')
+        if (!sellBtn) injectSellBtn(items)
+      }  )
   }
 }
 

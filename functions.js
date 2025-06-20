@@ -109,16 +109,6 @@ function createSVG(index, state, callback) {
     //newElem.dataset.icon = 'star'
     newElem.dataset.prefix = 'fas'
     newElem.role = 'img'
-    //newElem.setAttributeNS("svg", '0 0 576 512')
-    //newElem.width.animVal = {unitType: 2, value: 15.75, valueAsString: "100%", valueInSpecifiedUnits: 100}
-    //newElem.width.baseVal = {unitType: 2, value: 15.75, valueAsString: "100%", valueInSpecifiedUnits: 100}
-    //newElem.height.animVal = {unitType: 2, value: 14, valueAsString: "100%", valueInSpecifiedUnits: 100}
-    //newElem.height.baseVal = {unitType: 2, value: 14, valueAsString: "100%", valueInSpecifiedUnits: 100}
-    //console.log(newElem.attributes)
-    //newElem.viewBox.animVal.height = 512  //'0 0 576 512'
-    //newElem.viewBox.animVal.width = 576
-    //newElem.setAttribute("width", "576");
-    //newElem.setAttribute("height", "512");
     newElem.setAttribute("viewBox", '0 0 576 512');
     newElem.innerHTML = innerHTML
     callback(newElem)
@@ -273,16 +263,13 @@ function parseElementWithInterval(type) {
         else  return null
         }
     const _func = async () => { 
-        //return getElem(key, parsingFunc).then(result=> {if(result) { return result} else return null})
         return getElem().then(result=> {if(result) { return result} else return null})
-        //return document.querySelectorAll('div.e14va4ca4')
         }
 
     return new Promise((res, rej)=> {
-        const newInterval = setInterval(_func().then(result=> { if (result) { res(result); _clear()}})   , 1000, res)
+        const newInterval = setInterval(()=> {_func().then(result=> { if (result) { res(result); _clear()}})}    , 1000, res)
         
         function _clear() {
             clearInterval(newInterval)
         }
     })}
-
