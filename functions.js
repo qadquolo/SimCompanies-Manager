@@ -21,9 +21,9 @@ function updatePlayerCash(money){
     let cashElem = self. document.getElementsByClassName("css-q2xpdd")[0]
     //if (cashElem) cashElem.innerHTML = '$' + String(representCashString(money))
     if (cashElem) {
-        if (money < 1000) {cashElem.innerHTML = '$' + String(money); return}
+        if (money < 1000) {_nodes(cashElem)[1] = String(money); return}
         //cashElem.innerHTML = '$' + Number(money*0.001).toFixed(3)
-
+        function _nodes(hElem) {return hElem.childNodes}
         function getTrunc(money) {
             let value = Number(money*0.001).toFixed(3); return String(value).split('.')[0]
         }
@@ -41,7 +41,7 @@ function updatePlayerCash(money){
             return values
         }
         let values = getValues(money); 
-        let nodes = cashElem.childNodes; nodes[1].data = values.reverse().join(',')
+        _nodes(cashElem)[1].data = values.reverse().join(',')
         //cashElem.innerHTML = '$' + '\n' + values.reverse().join(',')
     }  
 }
