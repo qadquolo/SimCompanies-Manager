@@ -444,7 +444,7 @@ function createExchangeButton(callback) {
 }
 function createPriceInspector(callback) {
   try {
-    let hElem = document.getElementsByClassName('css-inxa61 e1uuitfi4')[0]
+    let hElem = document.getElementsByClassName('css-inxa61')[0]
     if(hElem) {
       createElement(null, {elem:'div', id: 'custom-price-inspector-cont', classname: 'custom-cont price-inspector-cont', style:_style.prcInspector}, (elem) => { 
         hElem.append(elem)
@@ -490,7 +490,7 @@ function openPriceSettings(callback) {
           panel.append(div)
           createElement(null, {elem:'form', id: 'm-custom-inspector-form-1', classname: 'm-custom-form', style:'display:flex;align-items:center;margin-bottom:.5rem;margin-top:1rem;'}, (form) => {
             div.append(form)
-            createElement(null, {elem:'label', id: 'm-custom-inspector-label', classname: 'm-custom-label',innerText: 'interval', style:'margin-bottom:0;margin-left:1rem;'}, (label) => {
+            createElement(null, {elem:'label', id: 'm-custom-inspector-label', classname: 'm-custom-label inspector-interval',innerText: 'interval', style:'margin-bottom:0;margin-left:1rem;'}, (label) => {
               form.append(label)
               createElement(null, {elem:'input', id: 'm-custom-inspector-input', classname: 'm-custom-input inspector', value: notif_timeinterval/1000, style:'margin-top:0;'}, (input) => {
                 label.append(input)

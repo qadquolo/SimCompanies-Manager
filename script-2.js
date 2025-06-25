@@ -44,7 +44,7 @@ function changeSidePanelState(sidePanel, callback) {
 
 function createBuildingBusiness(callback) {
   try {
-    let hElem = document.getElementsByClassName('css-inxa61 e1uuitfi4')[0]
+    let hElem = document.getElementsByClassName('css-inxa61')[0]
     if(hElem) {
       createElement(null, {elem:'div', id: 'build-busy-cont', classname: 'custom-cont build-busy-cont', style:_style.prcInspector}, (elem) => { 
         hElem.append(elem)
