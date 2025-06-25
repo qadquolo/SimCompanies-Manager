@@ -180,6 +180,12 @@ span.custom-label:hover {
     font-size: 2rem;
     margin-right: 2.5rem;
 }
+.m-custom-label.inspector-interval {
+    width: min-content;
+    margin-bottom: 0px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
 .custom-label {
     margin-block: .2rem;
     margin-left: 0;
@@ -423,7 +429,7 @@ form.m-custom-form {
 .custom-input.warehouse-item {
     margin-inline: 0;
 }
-.btn.sell-btn {
+.sell-btn {
     display: block;
     position: relative;
     right: 10px;
@@ -434,6 +440,7 @@ form.m-custom-form {
     height: 2rem;
     z-index: 10;
     margin-left: 8rem;
+
 }
 .custom-sell {
     display: flex;
