@@ -273,3 +273,10 @@ function parseElementWithInterval(type) {
             clearInterval(newInterval)
         }
     })}
+
+async function getElementByQuery(selector) {
+    return document.querySelector(selector)
+}
+function moveChat() {
+    getElementByQuery('.chat-notifications').then(chat=> {if (!priceSettingsChecked && !busySettingsChecked) {chat.style='margin-left:unset;'} else {chat.style='margin-left:34rem;'}})
+}

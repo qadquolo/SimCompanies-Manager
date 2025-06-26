@@ -50,7 +50,7 @@ function createBuildingBusiness(callback) {
         hElem.append(elem)
         createElement(null, {elem:'div', id: 'build-busy', classname: 'headbar-item build-busy', style:_style.prcInspector}, (div) => { 
           elem.append(div)   
-          div.addEventListener('click', (ev) => {toggleBuildBusyService(ev)  })
+          div.addEventListener('click', (ev) => {toggleBuildBusyService(ev);   })
 
           createSVG(null, {id: 'build-busy-toggle', classname: ['build-busy','acting-toolbar', 'toggle'], innerHTML: _path.buildBusy}, (svg) => { 
               div.append(svg)   
@@ -58,7 +58,7 @@ function createBuildingBusiness(callback) {
         })
         createSVG(null, {id: 'build-busy-settings', classname: ['headbar-item', 'build-busy', 'settings'], innerHTML: _path.inspectorSettings, style:_style.prcInspectorSettings}, (svg) => { 
           elem.append(svg)   
-          svg.addEventListener('click', (ev) => {   toggleBusyPanel() })
+          svg.addEventListener('click', (ev) => {   toggleBusyPanel();  moveChat()    })
         })
         callback(true) // chrome.runtime.sendMessage()
       })
