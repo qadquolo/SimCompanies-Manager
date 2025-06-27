@@ -27,62 +27,63 @@ function injectSellBtn(items) {
         let stock = getItemData(item, 'SPAN')
         if (key) { //let offset = (hElem.scrollWidth - item.offsetLeft - 130 ); style:`margin-right:${offset}px;`
             createElement(key, {elem:'div', id: 'warehouse-item', classname: 'custom-cont warehouse-item'}, (cont) => { hElem.append(cont);
-                createElement(key, {elem:'button', id: 'warehouse-item-sell-btn', classname: 'warehouse-item btn sell-btn', innerHTML:'Sell'}, (btn) => { cont.append( btn, item)
-                    btn.onclick = (ev)=> {
-                        if (eCreated.customSell)  { eCreated.customSell.remove(); }
-                        //if (wares.length > 0)  setWaresForOptions()
-                        let page = document.getElementById('page')
-                        
-                        createElement(key, {elem:'div', id: 'warehouse-item-sell', classname: 'warehouse-item custom-sell'}, (div) => { page.append(div);  eCreated.customSell = div
-                            createElement(key, {elem:'img', id: 'custom-sell-img', classname: 'warehouse-item custom-img', src: getItemData(item, 'IMG')}, (img) => { div.append(img)})
-                            createElement(null, {elem:'div', id: 'custom-sell-stock-cont', classname: 'custom-sell-cont'}, (cont) => { div.append(cont)
-                                createElement(key, {elem:'span', id: 'custom-sell-stock', classname: 'warehouse-item stock', innerHTML: stock}, (span) => { cont.append(span)})
-                                createElement(key, {elem:'div', classname: 'custom-sell-cont qty'}, (cont2) => { cont.append(cont2)
-                                    
-                                    createElement(key, {elem:'select', id: 'custom-sell-qty', classname: 'custom-select warehouse-item quality'}, (select) => { 
-                                        cont2.append(select)
-                                        select.onchange = (ev)=> setSellingInput(ev.target, key)
-                                        let i = -1; 
-                                        do {   i++; 
-                                            createElement(key, {elem:'option', classname: 'custom-option warehouse-item qty', innerText: `${i}: -1`}, (option) => { select.append(option)
-                                                if (i== 11) if (wares.length == 0)  makeApiRequest(`api/v3/resources/${companyId}/`, null, (response) => {wares = response; setWaresForOptions((_wares)=> setHigherCt(_wares))})
-                                                else  setWaresForOptions((_wares)=> setHigherCt(_wares))
-                                        })  } while(i < 12)
-                                    })
-                                    let classList = ['svg-inline--fa', 'fa-star', 'css-0', 'custom-sell-svg-star']
-                                    createSVG(key, {classname: classList, innerHTML: _path.SVGStar, style:'visibility:unset;'}, (svg) => { cont2.append(svg)})
-                                })
-                            })
-    
-                            createElement(key, {elem:'label', classname: 'custom-label warehouse-item ct', innerText: 'units'}, (label) => { div.append(label); 
-                                createElement(key, {elem:'input', id: 'custom-sell-ct', classname: 'custom-input warehouse-item ct'}, (input) => { label.append(input); })
-                            })
-                            createElement(key, {elem:'label', classname: 'custom-label warehouse-item price', innerText: 'price'}, (label) => { div.append(label); 
-                                createElement(key, {elem:'input', id: 'custom-sell-price', classname: 'custom-input warehouse-item price'}, (input) => { label.append(input); })
-                            })
-                            
-                            createElement(key, {elem:'button', id: 'custom-sell-btn', classname: 'warehouse-item btn btn-primary custom-button', innerHTML: 'Sell'}, (button) => { div.append(button)
-                                button.onclick = (ev) => {
-                                    let hElem =  ev.target.parentNode; 
-    
-                                    let unitsCt = String(hElem.querySelectorAll('input.custom-input')[0].value)
-                                    let price = Number(hElem.querySelectorAll('input.custom-input')[1].value)
-                                    let qty = Number(hElem.querySelector('select.custom-select').value.split(':')[0])
-                                    chrome.storage.local.set({to_sell: {[key]: {[qty]: price}}})
-                                    let payload = {"resourceId": getResourceID(key, qty),"price": price,"quantity": unitsCt,"quality": qty,"kind": key}
-                                    console.log(payload)
-                                    makeApiRequest('api/v2/market-order/', payload, (response)=> onResponse(response, (success)=> {if (success) changeWaresCount(key, unitsCt, qty, item)  }))
-                                    
-                                    }
-                            })
-                        })
-                        
-                    }
-                  })
+                createElement(null, {elem:'div', classname: 'warehouse-item button', style: 'width:0;'}, (div) => { cont.append(item, div);
+                    createElement(key, {elem:'button', id: 'warehouse-item-sell-btn', classname: 'warehouse-item sell-btn', innerHTML:'Sell'}, (btn) => { div.append(btn)
+                        btn.onclick = (ev)=> onSellButtonClick()
+                      })
+                })
             })
-
         }
-        
+        function onSellButtonClick() {
+            if (eCreated.customSell)  { eCreated.customSell.remove(); }
+            //if (wares.length > 0)  setWaresForOptions()
+            let page = document.getElementById('page')
+            
+            createElement(key, {elem:'div', id: 'warehouse-item-sell', classname: 'warehouse-item custom-sell'}, (div) => { page.append(div);  eCreated.customSell = div
+                createElement(key, {elem:'img', id: 'custom-sell-img', classname: 'warehouse-item custom-img', src: getItemData(item, 'IMG')}, (img) => { div.append(img)})
+                createElement(null, {elem:'div', id: 'custom-sell-stock-cont', classname: 'custom-sell-cont'}, (cont) => { div.append(cont)
+                    createElement(key, {elem:'span', id: 'custom-sell-stock', classname: 'warehouse-item stock', innerHTML: stock}, (span) => { cont.append(span)})
+                    createElement(key, {elem:'div', classname: 'custom-sell-cont qty'}, (cont2) => { cont.append(cont2)
+                        
+                        createElement(key, {elem:'select', id: 'custom-sell-qty', classname: 'custom-select warehouse-item quality'}, (select) => { 
+                            cont2.append(select)
+                            select.onchange = (ev)=> setSellingInput(ev.target, key)
+                            let i = -1; 
+                            do {   i++; 
+                                createElement(key, {elem:'option', classname: 'custom-option warehouse-item qty', innerText: `${i}: -1`}, (option) => { select.append(option)
+                                    if (i== 11) if (wares.length == 0)  makeApiRequest(`api/v3/resources/${companyId}/`, null, (response) => {wares = response; setWaresForOptions((_wares)=> setHigherCt(_wares))})
+                                    else  setWaresForOptions((_wares)=> setHigherCt(_wares))
+                            })  } while(i < 12)
+                        })
+                        let classList = ['svg-inline--fa', 'fa-star', 'css-0', 'custom-sell-svg-star']
+                        createSVG(key, {classname: classList, innerHTML: _path.SVGStar, style:'visibility:unset;'}, (svg) => { cont2.append(svg)})
+                    })
+                })
+
+                createElement(key, {elem:'label', classname: 'custom-label warehouse-item ct', innerText: 'units'}, (label) => { div.append(label); 
+                    createElement(key, {elem:'input', id: 'custom-sell-ct', classname: 'custom-input warehouse-item ct'}, (input) => { label.append(input); })
+                })
+                createElement(key, {elem:'label', classname: 'custom-label warehouse-item price', innerText: 'price'}, (label) => { div.append(label); 
+                    createElement(key, {elem:'input', id: 'custom-sell-price', classname: 'custom-input warehouse-item price'}, (input) => { label.append(input); })
+                })
+                
+                createElement(key, {elem:'button', id: 'custom-sell-btn', classname: 'warehouse-item btn btn-primary custom-button', innerHTML: 'Sell'}, (button) => { div.append(button)
+                    button.onclick = (ev) => {
+                        let hElem =  ev.target.parentNode; 
+
+                        let unitsCt = String(hElem.querySelectorAll('input.custom-input')[0].value)
+                        let price = Number(hElem.querySelectorAll('input.custom-input')[1].value)
+                        let qty = Number(hElem.querySelector('select.custom-select').value.split(':')[0])
+                        chrome.storage.local.set({to_sell: {[key]: {[qty]: price}}})
+                        let payload = {"resourceId": getResourceID(key, qty),"price": price,"quantity": unitsCt,"quality": qty,"kind": key}
+                        console.log(payload)
+                        makeApiRequest('api/v2/market-order/', payload, (response)=> onResponse(response, (success)=> {if (success) changeWaresCount(key, unitsCt, qty, item)  }))
+                        
+                        }
+                })
+            })
+            
+        }
     })
 }
 

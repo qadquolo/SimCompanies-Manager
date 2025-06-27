@@ -93,6 +93,7 @@
     margin-inline: .5rem;
 }
 .custom-cont.warehouse-item {
+    display:flex;
     margin-inline: 0;
 }
 .custom-image-cont {
@@ -430,17 +431,18 @@ form.m-custom-form {
     margin-inline: 0;
 }
 .sell-btn {
-    display: block;
+    display: flex;
     position: relative;
-    right: 10px;
-    top: 6.5rem;
+    justify-content: center;
+    min-width: 4rem;
+    right: 6rem;
+    top: 4.5rem;
     min-width: 4rem;
     text-transform: uppercase;
-    padding: 0;
     height: 2rem;
     z-index: 10;
-    margin-left: 8rem;
-
+    margin: 0;
+    padding: 0px;
 }
 .custom-sell {
     display: flex;
