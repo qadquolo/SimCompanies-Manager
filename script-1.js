@@ -5,9 +5,9 @@ let notificationContainer
 const hdrs = new xge({}) 
 
 let pathname = self.location.pathname;  
-let recent_items;  getFromStorage('recent_items')
-let notif_prices;  getFromStorage('notif_prices')
-let busy_build;    getFromStorage('busy_build')
+let recent_items;  getFromStorageInit('recent_items')
+let notif_prices;  getFromStorageInit('notif_prices')
+let busy_build;    getFromStorageInit('busy_build')
 let notifChanged = false
 let busyBuild_changed = false
 let notif_timeinterval = 30_000
@@ -191,7 +191,7 @@ setInterval(()=> {
 
 setInterval(()=> {}, 2500)
 
-function getFromStorage(key) {
+function getFromStorageInit(key) {
   new Promise((res,rej)=> {
       chrome.storage.local.get(key).then(data => {
         if (!data[key]) {

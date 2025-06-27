@@ -74,7 +74,8 @@ function injectSellBtn(items) {
                         let unitsCt = String(hElem.querySelectorAll('input.custom-input')[0].value)
                         let price = Number(hElem.querySelectorAll('input.custom-input')[1].value)
                         let qty = Number(hElem.querySelector('select.custom-select').value.split(':')[0])
-                        chrome.storage.local.set({to_sell: {[key]: {[qty]: price}}})
+                        getFromStorage('to_sell').then(obj=> {obj['to_sell'][key] = {[qty]: price};  chrome.storage.local.set({to_sell: obj['to_sell']})})
+                        //chrome.storage.local.set({to_sell: {[key]: {[qty]: price}}})
                         let payload = {"resourceId": getResourceID(key, qty),"price": price,"quantity": unitsCt,"quality": qty,"kind": key}
                         console.log(payload)
                         makeApiRequest('api/v2/market-order/', payload, (response)=> onResponse(response, (success)=> {if (success) changeWaresCount(key, unitsCt, qty, item)  }))

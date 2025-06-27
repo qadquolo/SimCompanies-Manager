@@ -280,3 +280,7 @@ async function getElementByQuery(selector) {
 function moveChat() {
     getElementByQuery('.chat-notifications').then(chat=> {if (!priceSettingsChecked && !busySettingsChecked) {chat.style='margin-left:unset;'} else {chat.style='margin-left:34rem;'}})
 }
+
+async function getFromStorage(key) {
+    return chrome.storage.local.get(key) 
+}
