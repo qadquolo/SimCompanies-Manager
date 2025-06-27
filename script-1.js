@@ -288,7 +288,10 @@ function makeLowerPricesRequest() {
           updatePlayerCash(playerMoney)
           showNotification(msg, 'message', true)
   
-          if (init == 'user') { let buildBusyTimeout = setTimeout(()=> {newProductionRequest(b); }, b.busy.duration*1000 + default_busy_timeinterval ); busyTimeouts[building.id] = buildBusyTimeout}
+          if (init == 'user') { let buildBusyTimeout = setTimeout(()=> { 
+            toggleBusyStateForPanel(key); if(buildBusyState === 1) newProductionRequest(b); }, b.busy.duration*1000 + default_busy_timeinterval ); 
+            busyTimeouts[building.id] = buildBusyTimeout
+          }
   
       })
       })
