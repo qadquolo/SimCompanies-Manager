@@ -8,4 +8,4 @@ How to install:
 3. Go to the manage web-browser extensions page in your browser
 4. Upload directory with files by clicking Upload unpackaged extension
 
-<a href='https://raw.githubusercontent.com/qadquolo/SimCompanies-Manager/refs/heads/main/img/preview.jpg' /></a>
+<img src='https://raw.githubusercontent.com/qadquolo/SimCompanies-Manager/refs/heads/main/img/preview.jpg' alt='preview.jpg' />
